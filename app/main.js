@@ -1,24 +1,5 @@
-function loadJSON(path, callback) {
-  var xobj = new XMLHttpRequest();
-  xobj.overrideMimeType("application/json");
-  xobj.open('GET', path, true); //asynchronous opening of file
-  xobj.onreadystatechange = function () {
-    if (xobj.readyState == 4 && xobj.status == "200") {
-      callback(xobj.responseText);
-    }
-  };
-  xobj.send(null);
-}
-
-function init() {
-  loadJSON('conf/credentials.json',function(response) {
-    // Parse JSON string into object
-    var creds = JSON.parse(response);
-    Parse.initialize(creds.Parse.AppID, creds.Parse.JSKey);
-  });
-}
-
-init();
+var creds = require('./conf/credentials.json');
+Parse.initialize(creds.Parse.AppID, creds.Parse.JSKey);
 
 setTimeout(function(){
   var CommentBox = React.createClass({
